@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Learning Exoplayer</string>
     <string name="media_url_mp3"><![CDATA[https://firebasestorage.googleapis.com/v0/b/socialhitch-85f9b.appspot.com/o/Daru%20Badnaam-(Mr-Jatt.com).mp3?alt=media&token=199700d1-63da-46eb-8fdd-cc86b7e35e7f]]></string>
-    <string name="media_url1_mp3"><![CDATA[https://firebasestorage.googleapis.com/v0/b/socialhitch-85f9b.appspot.com/o/Daru%20Badnaam%20-%20Kamal%20Kahlon%20%26%20Param%20Singh%20-%20Official%20Video%20-%20Latest%20Punjabi%20Viral%20Songs.mp4?alt=media&token=cd4a2f85-e894-42e1-8bdd-27694e0319ee]]></string>
+    <string name="media_url1_mp3"><![CDATA[https://firebasestorage.googleapis.com/v0/b/socialhitch-85f9b.appspot.com/o/Aaj%20Se%20Teri%20%20Padman_(SwagyJatt.CoM).mp3?alt=media&token=d66076ce-fea0-4c55-81e8-95331e3b0c59]]></string>
+    <string name="media_url2_mp3"><![CDATA[https://firebasestorage.googleapis.com/v0/b/socialhitch-85f9b.appspot.com/o/Raghupati%20Raghav%20Raja%20Ram%20Instrumental%20Piano-(Mr-Jatt.com).mp3?alt=media&token=1d2efe83-0088-41f7-85b0-d7537979b43e]]></string>
+    <string name="media_url3_mp3"><![CDATA[https://firebasestorage.googleapis.com/v0/b/socialhitch-85f9b.appspot.com/o/Daru%20Badnaam%20-%20Kamal%20Kahlon%20%26%20Param%20Singh%20-%20Official%20Video%20-%20Latest%20Punjabi%20Viral%20Songs.mp4?alt=media&token=cd4a2f85-e894-42e1-8bdd-27694e0319ee]]></string>
 </resources>
