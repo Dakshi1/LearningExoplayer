@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -28,6 +32,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -196,11 +202,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             Log.d("text to classify",strings[0]);
+
+            String url = "http://api.meaningcloud.com/class-1.1?key=2943dd044c63d6125b8f02ed76803e43&txt="+strings[0]+"&model=IPTC_en";
+            /*
             OkHttpClient client = new OkHttpClient();
             //MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
             //RequestBody body = RequestBody.create(mediaType, "key=2943dd044c63d6125b8f02ed76803e43&txt=" + strings[0] + "&model=IPTC_en");
             Request request = new Request.Builder()
-                    .url("http://api.meaningcloud.com/class-1.1?key=2943dd044c63d6125b8f02ed76803e43&txt="+strings[0]+"&model=IPTC_en")
+                    .url(url)
                     .build();
             Response response;
             try {
@@ -211,11 +220,21 @@ public class MainActivity extends AppCompatActivity {
                 return response.toString();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            catch (JSONException e)
-            {
+            }*/
+            StringRequest stringRequest=new StringRequest(url, new com.android.volley.Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("Response volley",response.toString());
+                }
+            }, new com.android.volley.Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
-            }
+                }
+            });
+
+            RequestQueue requestQueue= Volley.newRequestQueue(MainActivity.this);
+            requestQueue.add(stringRequest);
             return null;
         }
 
