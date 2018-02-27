@@ -1,25 +1,17 @@
 package com.example.dakshi.learningexoplayer;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -27,37 +19,24 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    SimpleExoPlayerView playerView;
-    SimpleExoPlayer player;
-    private boolean playWhenReady=true;
-    long playbackPosition=0;
-    int currentWindow=0;
+    static Context mcontext;
+    static ArrayList<String> m_audio_link;
+    static SimpleExoPlayerView playerView;
+    static SimpleExoPlayer player;
+    private static boolean playWhenReady=true;
+    static long playbackPosition=0;
+    static int currentWindow=0;
     Button button;
-    String urls[]=new String[3];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        urls[0]="https://firebasestorage.googleapis.com/v0/b/socialhitch-85f9b.appspot.com/o/Daru%20Badnaam-(Mr-Jatt.com).mp3?alt=media&token=199700d1-63da-46eb-8fdd-cc86b7e35e7f";
-        urls[1]="https://firebasestorage.googleapis.com/v0/b/socialhitch-85f9b.appspot.com/o/Aaj%20Se%20Teri%20%20Padman_(SwagyJatt.CoM).mp3?alt=media&token=d66076ce-fea0-4c55-81e8-95331e3b0c59";
-        urls[2]="https://firebasestorage.googleapis.com/v0/b/socialhitch-85f9b.appspot.com/o/Raghupati%20Raghav%20Raja%20Ram%20Instrumental%20Piano-(Mr-Jatt.com).mp3?alt=media&token=1d2efe83-0088-41f7-85b0-d7537979b43e";
         playerView=findViewById(R.id.video_view);
         playerView.setControllerShowTimeoutMs(0);
         playerView.setUseArtwork(false);
@@ -78,64 +57,59 @@ public class MainActivity extends AppCompatActivity {
 
     private void sendText() {
 
-
-
-        String text="There once was a speedy Hare who bragged about how fast he could run. Tired of hearing him boast, the Tortoise challenged him to a race. All the animals in the forest gathered to watch. The Hare ran down the road for a while and then paused to rest. He looked back at the tortoise and cried out, How do you expect to win this race when you are walking along at your slow, slow pace? The Hare stretched himself out alongside the road and fell asleep, thinking, \"There is plenty of time to relax.The Tortoise walked and walked, never ever stopping until he came to the finish line. The animals who were watching cheered so loudly for Tortoise that they woke up the Hare. The Hare stretched, yawned and began to run again, but it was too late. Tortoise had already crossed the finish line.";
-        new ClassifyText().execute(text);
+        String text="Morne Morkel has provided some long-awaited clarity on his future after confirming that he will be retiring from international cricket at the end of South Africa's Test series against Australia. The 33-year-old fast bowler announced his decision in Durban on Monday (February 26) as the Proteas began their preparation for a four-match series against an opponent that they have never beaten in a Test series on home soil.\n" +
+                "\n" +
+                "Morkel's future has been the subject of speculation since last August, when he was linked with a Kolpak move. He subsequently admitted that his international career could be cut short unless he was provided assurances about his place at the 2019 World Cup. But while coach Ottis Gibson later said that Morkel was a part of his plans for the tournament, Morkel has now decided to put family first.\n" +
+                "\n" +
+                "\"It was an extremely tough decision but I feel the time is right to start a new chapter,\" Morkel said. \"I have a young family and a foreign wife, and the current demanding international schedule has put a lot of strain us. I have to put them first and this decision will only benefit us going forward.\"\n" +
+                "\n" +
+                "Morkel went on to cite the recent separation from his Australian wife and two-year-old son - due to his wife's work commitments - as part of the reason for his decision. \"Playing for the Proteas is something very special. But family comes first. My wife and my family was away for 10 weeks now for work commitments, which was very tricky for me. After sitting them down, and discussing it with family, we decided - I decided - it's better for me to start a chapter with them and focus more on family.\"\n" +
+                "\n" +
+                "Morkel did not say exactly where that new chapter will take him, but confirmed that he wanted to keep playing cricket at a high level. Morkel went unsold at the IPL auction last month, but a stint in English county cricket would be an appealing prospect. Morkel's family joined him for most of the three months that South Africa spent in England last year.\n" +
+                "\n" +
+                "\"I still feel great mentally and physically, and yes, I will be playing in other leagues around the world,\" he said. \"Out of respect to CSA I have not put pen to paper on any deal. My focus is 100% on winning this series (against Australia). I'll make a decision once everything is done.\"\n" +
+                "\n" +
+                "While Morkel has given up on the dream of winning a World Cup, he will still have the opportunity to tick an important box: a Test series win against Australia at home. During his career, South Africa have won series in England and Australia, and drawn a series in India, but the Proteas are yet to beat their fiercest rival in a Test series at home since readmission.\n" +
+                "\n" +
+                "On an individual level, Morkel will have the opportunity to pass 300 Test wickets. He is currently on 294 after 83 Test matches, and he is likely to remain fifth on South Africa's list of most successful Test bowlers - Allan Donald, who is ahead of him, took 330.\n" +
+                "\n" +
+                "In 117 ODIs, Morkel claimed 188 wickets at 25.32. Since returning from a serious back injury a year ago, he has become a key member of the ODI side. But the emergence of Lungi Ngidi in both Tests and ODIs suggests that his absence will be covered for, and Morkel expressed his own confidence in the future of South Africa's fast bowling arsenal.\n" +
+                "\n" +
+                "\"I honestly think the crop of fast bowlers we have in the squad, give them a couple of months under Ottis and in this environment, they'll be more than capable of winning that trophy for us,\" he said of the World Cup. \"Unfortunately things didn't go our way in the white-ball formats against India, but give guys time, give them overs, give them the opportunity to grow.\n" +
+                "\n" +
+                "\"I'm very positive about and confident in the culture of the senior guys in the squad, that these guys will grow. I leave with a very happy heart. I'm always going to be a phone call away for the younger guys who want to have a chat. I'll always have an open line to them and to the team, and I would like to grow with them in this journey although I'm not going to be in the change room.\"\n" +
+                "\n";
+        new ClassifyText(MainActivity.this).execute(text);
     }
 
-    private void initializePlayer()
+    public static void initializePlayer(Context context, ArrayList<String> audio_link)
     {
+        mcontext=context;
+        m_audio_link=audio_link;
         player = ExoPlayerFactory.newSimpleInstance(
-                new DefaultRenderersFactory(this),
+                new DefaultRenderersFactory(context),
                 new DefaultTrackSelector(), new DefaultLoadControl());
         playerView.setPlayer(player);
         player.setPlayWhenReady(playWhenReady);
         player.seekTo(currentWindow, playbackPosition);
-
-        Uri uri = Uri.parse(getString(R.string.media_url_mp3));
-        MediaSource mediaSource = buildMediaSource(uri);
+        MediaSource mediaSource = buildMediaSource(audio_link);
         player.prepare(mediaSource, true, false);
     }
 
-    private MediaSource buildMediaSource(Uri uri) {
-        /*return new ExtractorMediaSource.Factory(
-                new DefaultHttpDataSourceFactory("exoplayer-codelab")).
-                createMediaSource(uri);*/
+    private static MediaSource buildMediaSource(ArrayList<String> audio_link) {
 
-        // these are reused for both media sources we create below
-/*        DefaultExtractorsFactory extractorsFactory =
-                new DefaultExtractorsFactory();
-        DefaultHttpDataSourceFactory dataSourceFactory =
-                new DefaultHttpDataSourceFactory( "user-agent");
+        ExtractorMediaSource audioSource[]=new ExtractorMediaSource[audio_link.size()];
+        Uri uri;
+        for(int i=0;i<audio_link.size();i++)
+        {
+            uri=Uri.parse(audio_link.get(i));
+            audioSource[i] =
+                    new ExtractorMediaSource.Factory(
+                            new DefaultHttpDataSourceFactory("exoplayer-codelab")).
+                            createMediaSource(uri);
+        }
 
-        ExtractorMediaSource videoSource =
-                new ExtractorMediaSource.Factory(
-                        new DefaultHttpDataSourceFactory("exoplayer-codelab")).
-                        createMediaSource(uri);
-
-        Uri audioUri = Uri.parse(getString(R.string.media_url_mp3));*/
-        ExtractorMediaSource audioSource[]=new ExtractorMediaSource[3];
-
-               audioSource[0] =
-                new ExtractorMediaSource.Factory(
-                        new DefaultHttpDataSourceFactory("exoplayer-codelab")).
-                        createMediaSource(uri);
-        uri = Uri.parse(getString(R.string.media_url1_mp3));
-        audioSource[1] =
-                new ExtractorMediaSource.Factory(
-                        new DefaultHttpDataSourceFactory("exoplayer-codelab")).
-                        createMediaSource(uri);
-
-        uri = Uri.parse(getString(R.string.media_url2_mp3));
-        audioSource[2] =
-                new ExtractorMediaSource.Factory(
-                        new DefaultHttpDataSourceFactory("exoplayer-codelab")).
-                        createMediaSource(uri);
         return new ConcatenatingMediaSource(audioSource);
-
-
-       // new ConcatenatingMediaSource(audioSource,audioSource,audioSource,audioSource,audioSource);
     }
 
     private void releasePlayer() {
@@ -148,13 +122,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        /*if (Util.SDK_INT > 23) {
-            initializePlayer();
-        }*/
-    }
 
     @Override
     protected void onPause() {
@@ -175,11 +142,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        /*if ((Util.SDK_INT <= 23 || player == null)) {
-            initializePlayer();
-        }*/
+        if ((Util.SDK_INT <= 23 || player == null) && mcontext!=null) {
+            initializePlayer(mcontext, m_audio_link);
+        }
     }
-    /*@SuppressLint("InlinedApi")
+    @SuppressLint("InlinedApi")
     private void hideSystemUi() {
         playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -187,62 +154,5 @@ public class MainActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-    }*/
-
-    private class ClassifyText extends AsyncTask<String, Void, String>
-    {
-        ProgressDialog progressDialog;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog=new ProgressDialog(MainActivity.this);
-            progressDialog.show();
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            Log.d("text to classify",strings[0]);
-
-            String url = "http://api.meaningcloud.com/class-1.1?key=2943dd044c63d6125b8f02ed76803e43&txt="+strings[0]+"&model=IPTC_en";
-            /*
-            OkHttpClient client = new OkHttpClient();
-            //MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
-            //RequestBody body = RequestBody.create(mediaType, "key=2943dd044c63d6125b8f02ed76803e43&txt=" + strings[0] + "&model=IPTC_en");
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-            Response response;
-            try {
-                response = client.newCall(request).execute();
-                Log.d("response of text api",response.toString());
-                JSONObject jsonObject=new JSONObject(response.toString());
-                Log.d("output",jsonObject+"");
-                return response.toString();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-            StringRequest stringRequest=new StringRequest(url, new com.android.volley.Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.d("Response volley",response.toString());
-                }
-            }, new com.android.volley.Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
-            });
-
-            RequestQueue requestQueue= Volley.newRequestQueue(MainActivity.this);
-            requestQueue.add(stringRequest);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Toast.makeText(MainActivity.this, ""+s, Toast.LENGTH_SHORT).show();
-            progressDialog.dismiss();
-        }
     }
 }
